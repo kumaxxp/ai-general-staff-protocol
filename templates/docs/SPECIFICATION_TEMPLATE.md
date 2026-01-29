@@ -1,20 +1,153 @@
-# Specification: [Project Name]
+# 作戦命令書 (Operational Specification)
 
-## 1. Context & Intent (背景と目的)
-* **Why**: なぜこれを作るのか？（ビジネス価値、解決する課題）
+**Project**: [プロジェクト名]  
+**Version**: 1.0  
+**Date**: YYYY-MM-DD  
+**Author**: 方面軍参謀長 (Cline)  
+**Approved by**: 参謀総長 (Gemini)
+
+---
+
+## 1. 作戦背景 (Context & Strategic Intent)
+
+### 1.1 大本営方針 (GHQ Directive)
+
+> ここに参謀総長から下達された方針を記載する。
+> 方面軍参謀長は、この方針を逸脱する仕様を作成してはならない。
+
+### 1.2 目的 (Objective)
+
+* **Why**: なぜこれを作るのか？（戦略的価値）
 * **What**: 何を作るのか？（概要）
 
-## 2. User Stories (ユースケース)
-* [ ] As a [User], I want to [Action], so that [Benefit].
+### 1.3 技術本部調査結果 (Technical Bureau Findings)
 
-## 3. Functional Requirements (機能要件)
-| ID | Requirement | Constraints |
-| :--- | :--- | :--- |
-| REQ-001 | ... | ... |
+> NotebookLMによる調査・分析結果があれば記載する。
 
-## 4. Architecture & Data (構造とデータ)
-* **Directory Structure**:
-* **Data Model**:
+---
 
-## 5. Non-Functional Requirements (非機能要件)
-* Performance, Security, Reliability...
+## 2. 作戦要件 (Requirements)
+
+### 2.1 機能要件 (Functional Requirements)
+
+| ID | 要件 | 優先度 | 制約事項 |
+|:---|:-----|:------:|:---------|
+| REQ-001 | ... | 必須 | ... |
+| REQ-002 | ... | 推奨 | ... |
+
+### 2.2 非機能要件 (Non-Functional Requirements)
+
+| カテゴリ | 要件 |
+|:---------|:-----|
+| Performance | ... |
+| Security | ... |
+| Reliability | ... |
+
+### 2.3 受入条件 (Acceptance Criteria)
+
+- [ ] AC-1: ...
+- [ ] AC-2: ...
+- [ ] AC-3: ...
+
+---
+
+## 3. 設計仕様 (Design Specification)
+
+### 3.1 ディレクトリ構造 (Directory Structure)
+
+```
+project/
+├── src/
+│   ├── ...
+├── tests/
+│   ├── ...
+├── docs/
+│   ├── SPECIFICATION.md
+│   └── ...
+└── ...
+```
+
+### 3.2 データモデル (Data Model)
+
+> 必要に応じて図表・数式を用いて記載する。
+
+### 3.3 インターフェース定義 (Interface Definition)
+
+> API、CLI、関数シグネチャ等を明記する。
+
+---
+
+## 4. テスト計画 (Test Plan)
+
+### 4.1 テストケース
+
+| ID | テスト内容 | 期待結果 | 優先度 |
+|:---|:----------|:---------|:------:|
+| TC-001 | ... | ... | 必須 |
+| TC-002 | ... | ... | 推奨 |
+
+### 4.2 カバレッジ要件
+
+- 最低カバレッジ: 80%
+- 重要パス: 100%
+
+---
+
+## 5. 師団長への指示 (Instructions for Division Commander)
+
+### 5.1 作戦開始条件
+
+師団長（Claude Code）は、以下を確認した上で作戦開始を判断せよ：
+
+1. [ ] 全ての要件が明確に定義されている
+2. [ ] 技術的に実現可能である
+3. [ ] 必要な依存関係が利用可能である
+4. [ ] テスト計画が明確である
+
+### 5.2 作戦中止条件
+
+以下の状況では作戦を中止し、方面軍参謀長へ差し戻せ：
+
+1. 仕様書内に論理的矛盾を発見した場合
+2. 技術的に実現不可能と判断した場合
+3. 必要なリソースが不足している場合
+
+### 5.3 実装順序
+
+1. 基盤構築（REQ-001）
+2. 機能実装（REQ-002〜）
+3. テスト実施（TC-001〜）
+4. 文書化
+
+---
+
+## 6. 目視確認ポイント (Visual Inspection Checkpoints)
+
+幕僚長（User）による目視確認が想定されるポイント：
+
+| 段階 | 確認内容 | 確認方法 |
+|:-----|:---------|:---------|
+| 中間 | 基盤動作確認 | 実行デモ |
+| 完了 | 全機能確認 | テスト実行ログ |
+| 最終 | 品質確認 | スクリーンショット |
+
+---
+
+## 7. 変更履歴 (Change Log)
+
+| 版 | 日付 | 変更者 | 変更内容 |
+|:---|:-----|:-------|:---------|
+| 1.0 | YYYY-MM-DD | 方面軍参謀長 | 初版作成 |
+
+---
+
+## 8. 承認 (Approval)
+
+| 役職 | 担当 | 承認日 | 署名 |
+|:-----|:-----|:-------|:-----|
+| 参謀総長 | Gemini | YYYY-MM-DD | _____ |
+| 幕僚長 | User | YYYY-MM-DD | _____ |
+
+---
+
+*本仕様書は AGSP v2.0 に準拠して作成された。*
