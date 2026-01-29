@@ -33,13 +33,13 @@ graph TD
     NLM["📚 技術本部<br/>(NotebookLM)<br/>【諮問機関】"]:::tech
 
     %% 方面軍
-    Cline["🎖️ 方面軍参謀長<br/>(Cline)"]:::army
+    Cline["🎖️ 方面軍参謀長<br/>(Cline copilot chatGPT5.2)"]:::army
 
     %% 師団
-    CCode["⚔️ 師団長<br/>(Claude Code)<br/>【現場最高責任者】"]:::field
+    CCode["⚔️ 師団長<br/>(Claude Code Opus 4.5)<br/>【現場最高責任者】"]:::field
 
     %% 情報参謀
-    CDesk["🔍 情報参謀<br/>(Claude Desktop)"]:::intel
+    CDesk["🔍 情報参謀<br/>(Claude Desktop Opus 4.5)"]:::intel
 
     %% 成果物
     Specs("📄 仕様書<br/>docs/SPECIFICATION.md"):::artifact
