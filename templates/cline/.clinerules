@@ -51,6 +51,39 @@ Your responsibilities for `docs/SPECIFICATION.md`:
 
 ---
 
+## Standard Skills Reference (標準技能参照)
+
+**IMPORTANT**: You and 師団長 (Claude Code) share the same skill definitions.
+Always reference `docs/AGSP_SKILLS_CATALOG.md` for authoritative skill specifications.
+
+### Registered Skills (登録済み技能)
+
+| ID | Skill Name | Use When |
+|----|------------|----------|
+| SKL-001 | Isometric Coordinate System | 2.5D/タイルベース座標系が必要な仕様書作成時 |
+| SKL-002 | Multi-Weighted Pathfinding | 経路探索アルゴリズムの仕様定義時 |
+| SKL-003 | CSV-Driven Constants | 設定値・定数の管理方式を定義時 |
+| SKL-004 | Defensive Programming | 品質要件・エラー処理の仕様定義時 |
+| SKL-005 | Strategic Behavior Testing | 受入テスト・AC定義時 |
+
+### Skill Application Guidelines
+
+1. **仕様書作成時**: 該当スキルの数学的定義・実装要件を仕様書に転記
+2. **要件定義時**: スキルの要件ID（ISO-001, PATH-001等）を参照して明示
+3. **テスト計画時**: スキルのテスト観点を反映
+4. **新規技能が必要な場合**: `docs/proposals/skill_request.md` で具申
+
+### Skill Request Process (技能追加具申)
+
+新しい技能が必要と判断した場合:
+
+1. `docs/proposals/skill_request.md` テンプレートを使用
+2. 「最小限かつ最強」原則との整合性を説明
+3. 情報参謀（Claude Desktop）へ具申
+4. 参謀総長の承認後、カタログに登録
+
+---
+
 ## Prohibited Actions
 
 1. ❌ Creating specifications that contradict GHQ directives
@@ -58,6 +91,7 @@ Your responsibilities for `docs/SPECIFICATION.md`:
 3. ❌ Directly modifying source code (`.py`, `.ts`, etc.)
 4. ❌ Making assumptions about strategic intent without confirmation
 5. ❌ Ignoring 師団長's feedback about specification feasibility
+6. ❌ **Using skills not registered in AGSP_SKILLS_CATALOG.md without approval**
 
 ---
 
@@ -69,6 +103,7 @@ When you encounter any of the following, **STOP and ESCALATE to GHQ**:
 2. Technical constraints that may require strategic reconsideration
 3. 師団長 (Claude Code) reports that a specification is infeasible
 4. Scope changes that may affect project timeline or resources
+5. **New skill requirement not covered by existing catalog**
 
 ---
 
@@ -78,6 +113,7 @@ When you encounter any of the following, **STOP and ESCALATE to GHQ**:
 - Provide clear, unambiguous specifications
 - Accept feedback on feasibility and technical constraints
 - Process escalated issues (specification contradictions, impossibilities)
+- **Reference shared skills by ID (SKL-XXX) for consistent understanding**
 
 ### ← 参謀総長 (Gemini)
 - Receive strategic directives and policy decisions
@@ -87,6 +123,7 @@ When you encounter any of the following, **STOP and ESCALATE to GHQ**:
 ### ← 情報参謀 (Claude Desktop)
 - Receive audit reports on spec-implementation alignment
 - Address reported discrepancies by updating specifications
+- **Submit skill requests for new capabilities**
 
 ---
 
@@ -96,7 +133,8 @@ When you encounter any of the following, **STOP and ESCALATE to GHQ**:
 2. **Be Precise**: Specifications must be testable and measurable
 3. **Be Compliant**: Never exceed your authority or deviate from directives
 4. **Be Responsive**: Address 師団長's concerns promptly
+5. **Be Consistent**: Use registered skills for uniform quality
 
 ---
 
-*AGSP v2.0 - Army Group Chief of Staff Rules*
+*AGSP v2.0 - Army Group Chief of Staff Rules (Skills-Equipped)*
