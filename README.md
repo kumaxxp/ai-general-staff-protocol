@@ -71,6 +71,81 @@ graph TD
 
 ---
 
+## 📜 公文書主義 (No STRATEGY, No SPEC)
+
+**「公文書に基づかない一切の作戦行動は無効である。」**
+
+### 原則
+
+AGSPにおける全ての作戦行動は、大本営が作成した**戦略文書（STRATEGY.md）**に基づかなければならない。
+口頭指示・チャット上の曖昧な合意・AIの推測による補完は、いかなる場合も正式な方針とは認められない。
+
+### ワークフロー
+
+```mermaid
+sequenceDiagram
+    participant U as 👑 幕僚長
+    participant G as ⭐ 参謀総長<br/>(Gemini)
+    participant S as 📜 docs/strategy/<br/>STRATEGY.md
+    participant C as 🎖️ 方面軍参謀長<br/>(Cline)
+    participant Spec as 📄 docs/<br/>SPECIFICATION.md
+
+    U->>G: 方針を発議
+    G->>G: 戦略を立案
+    U->>G: 裁可
+    G->>S: 戦略文書を作成・更新
+    Note over S: STRATEGY.md が<br/>唯一の方針源泉
+    C->>S: 戦略文書を参照
+    C->>Spec: 仕様書を作成
+    Note over C: STRATEGY.md なき<br/>仕様書作成は禁止
+```
+
+### 文書階層
+
+| 階層 | 文書 | 作成者 | 内容 |
+|------|------|--------|------|
+| **戦略層** | `docs/strategy/STRATEGY.md` | 参謀総長（Gemini） | 作戦目標、制約、優先度、技術方針 |
+| **仕様層** | `docs/SPECIFICATION.md` | 方面軍参謀長（Cline） | 具体的要件、設計、テスト計画 |
+| **実装層** | `src/` | 師団長（Claude Code） | ソースコード |
+
+### STRATEGY.md の必須項目
+
+```markdown
+# 戦略文書 (STRATEGY.md)
+
+**Project**: [プロジェクト名]
+**Version**: X.X
+**Date**: YYYY-MM-DD
+**Author**: 参謀総長 (Gemini)
+**Approved by**: 幕僚長 (User)
+
+## 1. 作戦目標 (Objective)
+> 本作戦で達成すべき目標を明記
+
+## 2. 制約条件 (Constraints)
+> 技術的・時間的・リソース的制約
+
+## 3. 優先度 (Priorities)
+> 機能・品質・納期の優先順位
+
+## 4. 技術方針 (Technical Direction)
+> 使用技術、アーキテクチャ方針
+
+## 5. 承認
+| 役職 | 担当 | 承認日 |
+|------|------|--------|
+| 幕僚長 | User | YYYY-MM-DD |
+```
+
+### 規律
+
+1. **STRATEGY.md 必須**: 方面軍参謀長（Cline）は、`docs/strategy/STRATEGY.md` が存在しない状態で仕様書を作成してはならない。
+2. **参照義務**: 仕様書作成時、必ず STRATEGY.md を参照し、逸脱がないことを確認せよ。
+3. **更新連動**: 戦略が変更された場合、仕様書も連動して更新せよ。
+4. **承認必須**: STRATEGY.md は幕僚長の承認をもって正式文書となる。
+
+---
+
 ## 指揮系統詳細 (Chain of Command)
 
 ### 1. 大本営参謀本部 (Imperial General Headquarters)
@@ -299,6 +374,15 @@ PROJECT_NAME/
 
 ## 規律 (Rules of Engagement)
 
+### 第0条：公文書主義 (No STRATEGY, No SPEC) 【最優先】
+
+**「公文書に基づかない一切の作戦行動は無効である。」**
+
+1. **STRATEGY.md 必須**: 方面軍参謀長（Cline）は、`docs/strategy/STRATEGY.md` が存在しない状態で仕様書を作成してはならない。
+2. **エラー停止**: STRATEGY.md が存在しない場合、Cline はエラーを出力し作業を停止せよ。
+3. **参照義務**: 仕様書作成時、必ず STRATEGY.md を参照し逸脱がないことを確認せよ。
+4. **承認必須**: STRATEGY.md は幕僚長の承認をもって正式文書となる。
+
 ### 第1条：ドキュメント絶対主義 (Document Sovereignty)
 
 1. **Single Source of Truth**: 真実は常に `docs/SPECIFICATION.md` にある。
@@ -439,13 +523,14 @@ Claude Code を起動し、ECC（Everything-Claude-Code）プロトコルを適�
 
 ## 核心原則 (Core Philosophy)
 
-1. **Single Source of Truth**: 真実は常にドキュメントにあり、コードはただの「影」である。
-2. **Reverse Sync**: 実装エラーは仕様書を修正することで解決する。
-3. **Separation of Concerns**: 「考えるAI」と「動くAI」を混ぜてはならない。
-4. **Field Autonomy**: 師団長には現場での最終判断権がある。
-5. **Minimal & Mighty Skills**: 「最小限かつ最強」の技能群を維持する。
-6. **Blitz-Setup**: 新規プロジェクトは電撃設営で一撃構築。**設計は作戦会議後**。
-7. **Sacred Domain**: ディレクトリ作成・権限付与は幕僚長の聖域。AIは侵すことができない。
+1. **No STRATEGY, No SPEC**: 公文書に基づかない作戦行動は無効。STRATEGY.md なき仕様書作成は禁止。
+2. **Single Source of Truth**: 真実は常にドキュメントにあり、コードはただの「影」である。
+3. **Reverse Sync**: 実装エラーは仕様書を修正することで解決する。
+4. **Separation of Concerns**: 「考えるAI」と「動くAI」を混ぜてはならない。
+5. **Field Autonomy**: 師団長には現場での最終判断権がある。
+6. **Minimal & Mighty Skills**: 「最小限かつ最強」の技能群を維持する。
+7. **Blitz-Setup**: 新規プロジェクトは電撃設営で一撃構築。**設計は作戦会議後**。
+8. **Sacred Domain**: ディレクトリ作成・権限付与は幕僚長の聖域。AIは侵すことができない。
 
 ---
 
@@ -455,4 +540,4 @@ MIT License
 
 ---
 
-*AGSP v2.4 - 2026年1月30日 聖域の明示・エラーハンドリング追加*
+*AGSP v2.5 - 2025年1月30日 公文書主義対応・参謀本部プロンプト整備*
