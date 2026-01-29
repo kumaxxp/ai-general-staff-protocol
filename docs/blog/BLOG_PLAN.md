@@ -85,6 +85,41 @@ AIという暴れ馬を乗りこなすための、冷徹な鞭を振るう。
 
 ---
 
+
+
+## Tech Note: 静かなる胎動 (Silent Activation)
+
+俺はまだ戦わない。だが、武器の手入れだけは済ませておく。
+次回の「参謀本部」立ち上げに備え、VS Codeに**「参謀の脳」**だけを密かに接続した。
+
+これからAGSPを実践する同志たちよ。悪いことは言わない。今のうちにこれだけはやっておけ。
+
+### 1. 参謀の器を用意する
+
+VS Codeの拡張機能マーケットプレイスで **[Cline]** を検索し、インストールする。
+これが、我々とAIを繋ぐ通信機となる。
+
+### 2. 知能を接続する
+
+Clineの設定画面を開き、以下を設定する。
+
+* **API Provider**: `Google Gemini`
+* **API Key**: [Google AI Studio](https://aistudio.google.com/) で取得したキーを入力（無料枠で十分だ）。
+* **Model**: `gemini-1.5-pro-latest`
+* **重要**: ここで `flash` を選ぶな。我々に必要なのは、スピードではない。200万トークンの文脈を理解する「深い思考力」だ。迷わず `pro` を選べ。
+
+**エラーが発生しまくるので、gemini-2.0-flash-001 1.0M:In$0.1/M:Out$0.4/M を利用します**
+
+設定が終わり、チャット欄に「Hello」と打ち込んでみろ。
+"Hello! How can I help you today?"
+
+……こいつはまだ、自分がこれからどんな過酷な戦場に投入されるかを知らない。
+だが、それでいい。今はただ、静かに眠らせておけ。
+
+
+
+---
+
 # 第2回：参謀本部 (Headquarters)
 
 <center><b>" 悪い将軍が一人いる方が、良い将軍が二人いるよりマシだ。 "</b>
@@ -134,6 +169,104 @@ graph TD
 脳と手。二つの世界は分断されている。
 それを繋ぐのは、血管か、神経か、あるいはMarkdownか。
 次回、「第二の脳」。記憶を外部化せよ。
+
+---
+
+## Tech Note: 参謀本部の設営 (Setup)
+
+物語は終わった。ここからは現実の構築だ。
+AGSP構成員である「参謀次長（Cline）」と「現場指揮官（Claude Code）」を、君の新規プロジェクト `game_route_search` に着任させ、**ストレスフリーな自律稼働環境**を構築する手順を公開する。
+
+前提として、君のPCには `VS Code` と `Git` がインストールされているものとする。
+
+### Phase 1: 戦場の確保
+
+まずはプロジェクトを作成し、Gitで初期化する。AGSPにおいて、Gitのないフォルダは「荒野」に等しい。万が一AIが暴走しても、Gitさえあれば時間を巻き戻せる。
+
+```bash
+# プロジェクトディレクトリの作成
+mkdir game_route_search
+cd game_route_search
+
+# 領域の確保（これが命綱だ）
+git init
+
+# "法"を司るドキュメント保管庫の作成
+mkdir docs
+
+```
+
+### Phase 2: 参謀次長の着任と「脳」の接続 (Deploy Cline)
+
+VS Codeの拡張機能「Cline」をインストールする。だが、初期状態の彼はただの箱だ。
+以下の設定を行い、**「無料枠で最強の頭脳」**と**「独断専行権」**を与える。
+
+#### 1. 頭脳の接続 (Gemini 2.0 Flash)
+
+設定画面（歯車アイコン）を開き、以下を設定せよ。
+
+* **API Provider**: `Google Gemini`
+* **API Key**: [Google AI Studio](https://aistudio.google.com/) で取得したキー。
+* **Model**: **`gemini-2.0-flash-001`**
+* **なぜ Pro ではないのか？**: 無料枠の `1.5 Pro` は思考力は高いが、すぐに利用制限（Rate Limit）にかかり、開発が止まる。
+* **なぜ 2.0 Flash なのか？**: 爆速で、制限が緩く、かつ **100万トークン** の文脈を扱える。AGSPの参謀として現時点で最もバランスが良い。
+
+
+
+#### 2. リミッター解除 (YOLO Mode)
+
+参謀がいちいち「ファイルを読みますか？」「コマンドを実行しますか？」と聞いてくるようでは、戦争にならない。
+設定画面下部の **Advanced Settings** にある以下をONにせよ。
+
+* ✅ **Enable Skills** (将来の拡張用)
+* ✅ **Enable YOLO Mode** (Your Only Limit is One's imagination)
+* 警告文（Dangerous）が出るが構わない。これをONにすることで、Clineは全自動で仕様書を書き、修正する能力を得る。
+
+
+
+#### 3. 規定のインストール
+
+最後に、AGSP本部（テンプレート）からルールセットをコピーする。
+
+```bash
+# AGSP-Headquartersリポジトリから設定ファイルをコピー
+# (パスは各自の環境に合わせて書き換えること)
+cp ../ai-general-staff-protocol/templates/cline/.clinerules .
+
+# 憲法と仕様書雛形の設置
+cp ../ai-general-staff-protocol/templates/docs/RULES.md docs/
+cp ../ai-general-staff-protocol/templates/docs/SPECIFICATION_TEMPLATE.md docs/SPECIFICATION.md
+
+```
+
+### Phase 3: 現場指揮官の武装 (Bootstrap ECC)
+
+最強のTDD実行環境である **Everything-Claude-Code (ECC)** を導入する。
+手動ダウンロードは不要だ。現場指揮官（Claude Code）に「現地調達」させる。
+
+ターミナルで `claude` を起動し、以下のプロンプトを叩きつけろ。
+※ `-y` オプションを付けるか、起動後に `Shift+Tab` で **Auto-accept edits** モードにすることで、確認の手間を省ける。
+
+**▼ Bootstrap Prompt (ECC導入命令)**
+
+```text
+Initialize the .claude directory for this project by fetching the latest configuration from the Everything-Claude-Code repository.
+
+Execution Steps:
+1. Clone https://github.com/affaan-m/everything-claude-code.git to a temporary directory.
+2. Read its README.md to understand the directory structure.
+3. Copy the .claude folder (agents, commands, rules, skills) from the cloned repo to the current project root.
+4. Important: After copying, create a file .claude/rules/agsp-compliance.md and write the following AGSP restriction rule:
+   - 'Constraint: You must strictly follow docs/SPECIFICATION.md. Do not improvise. TDD is mandatory.'
+5. Delete the temporary directory.
+6. Report completion.
+
+```
+
+彼が「Done」と報告した時、君のターミナルは、TDDを自律的に回すための「要塞」へと変貌している。
+準備は整った。VS Codeを開け。最初の仕様書を書く時間だ。
+
+**(第2回 完)**
 
 ---
 
