@@ -73,6 +73,17 @@ graph TD
 
 ---
 
+## 🚀 新規プロジェクト展開手順 (Deployment Protocol)
+
+AGSP準拠のプロジェクトは、以下の「ブートストラップ（現地調達）」方式で展開せよ。
+
+### Step 1: 基地設営
+```bash
+mkdir NEW_PROJECT
+cd NEW_PROJECT
+git init
+mkdir docs
+
 ## 運用ワークフロー (The Loop)
 
 ### Phase 1: 戦況把握 (Intelligence)
@@ -90,6 +101,39 @@ graph TD
 7. **[User]** ターミナルでClaude Code(現場指揮官)へ命令。
    > 「更新された仕様書に基づき、実装を開始せよ」
 8. **[Claude Code]** 実装、テスト、コミットを行う。
+```
+
+### Step 2: 参謀次長 (Cline) の着任
+
+参謀本部のテンプレートから、最新の交戦規定をコピーする。
+
+```bash
+# AGSPリポジトリからコピー
+cp /path/to/AGSP-Headquarters/templates/cline/.clinerules .
+cp /path/to/AGSP-Headquarters/templates/docs/RULES.md docs/
+cp /path/to/AGSP-Headquarters/templates/docs/SPECIFICATION_TEMPLATE.md docs/SPECIFICATION.md
+
+```
+
+### Step 3: 現場指揮官 (Claude Code) の武装 (Bootstrap ECC)
+
+Claude Codeを起動し、以下のプロンプトを投げて **Everything-Claude-Code (ECC)** を自律インストールさせる。
+※これにより、常にGitHub上の最新版ECCが適用される。
+
+```markdown
+**Prompt:**
+"Initialize the `.claude` directory for this project by fetching the latest configuration from the **Everything-Claude-Code** repository.
+**Execution Steps:**
+1. Clone `https://github.com/affaan-m/everything-claude-code.git` to a temporary directory.
+2. Read its `README.md` to understand the directory structure.
+3. Copy the `.claude` folder (agents, commands, rules, skills) from the cloned repo to the current project root.
+4. **Important**: After copying, create a file `.claude/rules/agsp-compliance.md` and write the following AGSP restriction rule:
+* 'Constraint: You must strictly follow `docs/SPECIFICATION.md`. Do not improvise. TDD is mandatory.'
+
+5. Delete the temporary directory.
+6. Report completion."
+
+```
 
 ---
 
