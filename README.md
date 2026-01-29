@@ -110,13 +110,107 @@ graph TD
 ### 5. 情報参謀 (Intelligence Staff Officer)
 
 * **担当**: **Claude Desktop App**
-* **役割**: **【査察・報告・技能管理】**
+* **役割**: **【査察・報告・技能管理・電撃設営】**
 * **任務**: 
   - 戦域（ソースコード・テスト状況）の査察
   - 仕様書と実装の整合性監査
   - 戦況報告書（SITREP）の作成・提出
-  - **技能目録（AGSP_SKILLS_CATALOG.md）の管理**
-* **権限**: 読み取り専用。ドキュメント・コードの直接修正は原則禁止（報告書・技能目録の管理を除く）。
+  - 技能目録（AGSP_SKILLS_CATALOG.md）の管理
+  - **電撃設営（Blitz-Setup）の実行**
+* **権限**: 読み取り専用。ドキュメント・コードの直接修正は原則禁止（報告書・技能目録の管理・電撃設営を除く）。
+
+---
+
+## ⚡ 電撃設営フロー (Blitz-Setup Flow)
+
+新規プロジェクトを**一撃で自動構築**するための高速展開手順。
+
+### 概要
+
+```mermaid
+sequenceDiagram
+    participant U as 👑 幕僚長
+    participant G as ⭐ 参謀総長<br/>(Gemini)
+    participant C as 🔍 情報参謀<br/>(Claude Desktop)
+    participant FS as 📁 ファイルシステム
+
+    U->>G: ① プロジェクト名と概要を発議
+    G->>G: ② 電撃設営プロンプトを生成
+    G-->>U: プロンプトを提示
+    U->>C: ③ プロンプトを貼り付け（1回のみ）
+    C->>FS: ④ MCP駆使で全環境を自動構築
+    C->>C: ディレクトリ作成
+    C->>C: テンプレート配備
+    C->>C: README.md初期化
+    C->>C: Git初期化
+    C-->>U: ⑤ 設営完了報告
+```
+
+### 手順
+
+#### Step 1: 発議（幕僚長 → 参謀総長）
+
+幕僚長が参謀総長（Gemini）に以下を伝達：
+
+```
+プロジェクト名: [例: dynamic_battlefield]
+概要: [例: リアルタイム動的障害物を含む経路探索エンジン]
+ベースディレクトリ: [例: C:\work]
+```
+
+#### Step 2: プロンプト生成（参謀総長）
+
+参謀総長は `templates/blitz_setup.md` を参照し、プロジェクト固有の**電撃設営プロンプト**を生成する。
+
+#### Step 3: 実行（幕僚長 → 情報参謀）
+
+幕僚長は生成されたプロンプトを **Claude Desktop に1回だけ貼り付ける**。
+
+#### Step 4: 自動構築（情報参謀）
+
+情報参謀（Claude Desktop）は MCP Filesystem を駆使し、以下を自動実行：
+
+1. ターゲットディレクトリの作成
+2. 標準フォルダ構造の構築
+3. `.clinerules` の配備
+4. `docs/` 配下のテンプレート配備
+5. README.md の初期化
+6. Git リポジトリの初期化
+7. 設営完了報告
+
+#### Step 5: 完了報告
+
+情報参謀は設営完了を報告し、作戦開始準備完了を宣言する。
+
+### 標準フォルダ構造
+
+電撃設営により構築される標準構造：
+
+```
+PROJECT_NAME/
+├── .clinerules                    # 方面軍参謀長ルール
+├── .gitignore
+├── README.md                      # プロジェクト概要（AGSP準拠）
+├── docs/
+│   ├── SPECIFICATION.md           # 仕様書
+│   ├── RULES.md                   # AGSP憲法
+│   ├── AGSP_SKILLS_CATALOG.md     # 技能目録
+│   ├── strategy/                  # 戦略文書
+│   ├── proposals/                 # 技能追加要望等
+│   │   └── skill_request.md
+│   └── reports/                   # 査察報告書
+├── src/                           # ソースコード
+│   └── __init__.py
+├── tests/                         # テストコード
+│   └── __init__.py
+└── data/                          # データファイル（任意）
+```
+
+### プロンプト・テンプレート
+
+参謀総長が使用する電撃設営プロンプトのテンプレートは以下を参照：
+
+📄 `templates/blitz_setup.md`
 
 ---
 
@@ -189,9 +283,22 @@ graph TD
 2. 未登録の技能が必要な場合は、`docs/proposals/skill_request.md` で具申する。
 3. 情報参謀は「門番」として、安易な技能の乱立を許さない。
 
+### 第6条：電撃設営規律 (Blitz-Setup Discipline)
+
+1. 情報参謀（Claude Desktop）は、電撃設営プロンプトを受領した場合、即座に自動設営を開始する。
+2. 設営中は MCP Filesystem を駆使し、標準フォルダ構造を完全に構築する。
+3. 設営完了後、必ず設営完了報告を行い、構築したファイル一覧を提示する。
+
 ---
 
 ## 運用ワークフロー (Operational Workflow)
+
+### Phase 0: 電撃設営 (Blitz-Setup) 【新規プロジェクト時のみ】
+
+0. **[幕僚長]** 参謀総長にプロジェクト発議
+1. **[参謀総長]** 電撃設営プロンプトを生成
+2. **[幕僚長]** プロンプトを情報参謀（Claude Desktop）に貼り付け
+3. **[情報参謀]** 全環境を自動構築、完了報告
 
 ### Phase 1: 発議と諮問 (Initiative & Consultation)
 
@@ -225,7 +332,13 @@ graph TD
 
 ## 新規プロジェクト展開手順 (Deployment Protocol)
 
-### Step 1: 基地設営
+### 推奨：電撃設営フロー
+
+上記「⚡ 電撃設営フロー」を参照。参謀総長が生成したプロンプトを Claude Desktop に貼り付けるだけで完了。
+
+### 手動展開（従来方式）
+
+#### Step 1: 基地設営
 
 ```bash
 mkdir NEW_PROJECT
@@ -233,9 +346,13 @@ cd NEW_PROJECT
 git init
 mkdir docs
 mkdir docs/proposals
+mkdir docs/strategy
+mkdir docs/reports
+mkdir src
+mkdir tests
 ```
 
-### Step 2: 方面軍参謀長（Cline）の着任
+#### Step 2: 方面軍参謀長（Cline）の着任
 
 ```bash
 # AGSPリポジトリからテンプレートをコピー
@@ -246,7 +363,7 @@ cp /path/to/ai-general-staff-protocol/templates/docs/AGSP_SKILLS_CATALOG_TEMPLAT
 cp /path/to/ai-general-staff-protocol/docs/proposals/skill_request.md docs/proposals/
 ```
 
-### Step 3: 師団長（Claude Code）の武装
+#### Step 3: 師団長（Claude Code）の武装
 
 ```bash
 # 師団長向け指示書をコピー
@@ -266,6 +383,7 @@ Claude Code を起動し、ECC（Everything-Claude-Code）プロトコルを適�
 3. **Separation of Concerns**: 「考えるAI」と「動くAI」を混ぜてはならない。
 4. **Field Autonomy**: 師団長には現場での最終判断権がある。
 5. **Minimal & Mighty Skills**: 「最小限かつ最強」の技能群を維持する。
+6. **Blitz-Setup**: 新規プロジェクトは電撃設営で一撃構築する。
 
 ---
 
@@ -275,4 +393,4 @@ MIT License
 
 ---
 
-*AGSP v2.1 - 2026年1月29日 技能管理体制を追加*
+*AGSP v2.2 - 2026年1月29日 電撃設営フローを追加*
