@@ -1,8 +1,14 @@
 # **AI参謀本部プロトコル** <br>`AI General Staff Protocol (AGSP)`
 
-**Version:** 3.1  
+**Version:** 3.2  
 **"Don't fix the code. Update the Spec."**
 （コードを直すな。仕様書を書き換えろ。）
+
+> ⚠️ **v3.2の役職対応表（v2.5とは異なります）**
+> - 参謀総長 = **Claude Desktop**（← v2.5ではGemini）
+> - 作戦部長 = **Gemini**
+> - 情報部長 = **ChatGPT**
+> - 連合艦隊司令長官 = **Claude Code**
 
 ---
 
